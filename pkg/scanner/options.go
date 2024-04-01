@@ -12,6 +12,7 @@ type ConfigurableAWSScanner interface {
 	SetProgressTracker(t progress.Tracker)
 	SetAWSRegion(region string)
 	SetAWSEndpoint(endpoint string)
+	SetAWSProfile(profile string)
 	SetAWSServices(services []string)
 	SetConcurrencyStrategy(strategy concurrency.Strategy)
 }
@@ -36,6 +37,14 @@ func ScannerWithAWSEndpoint(endpoint string) options.ScannerOption {
 	return func(s options.ConfigurableScanner) {
 		if aws, ok := s.(ConfigurableAWSScanner); ok {
 			aws.SetAWSEndpoint(endpoint)
+		}
+	}
+}
+
+func ScannerWithAWSProfile(profile string) options.ScannerOption {
+	return func(s options.ConfigurableScanner) {
+		if aws, ok := s.(ConfigurableAWSScanner); ok {
+			aws.SetAWSProfile(profile)
 		}
 	}
 }

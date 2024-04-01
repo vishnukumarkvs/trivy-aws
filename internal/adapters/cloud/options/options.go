@@ -11,6 +11,7 @@ type Options struct {
 	ProgressTracker     progress.Tracker
 	Region              string
 	Endpoint            string
+	Profile             string
 	Services            []string
 	DebugWriter         debug.Logger
 	ConcurrencyStrategy concurrency.Strategy

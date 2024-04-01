@@ -38,6 +38,7 @@ type Scanner struct {
 	progressTracker       progress.Tracker
 	region                string
 	endpoint              string
+	profile               string
 	services              []string
 	frameworks            []framework.Framework
 	spec                  string
@@ -118,6 +119,10 @@ func (s *Scanner) SetAWSEndpoint(endpoint string) {
 	s.endpoint = endpoint
 }
 
+func (s *Scanner) SetAWSProfile(profile string) {
+	s.profile = profile
+}
+
 func (s *Scanner) SetAWSServices(services []string) {
 	s.services = services
 }
@@ -144,6 +149,7 @@ func (s *Scanner) CreateState(ctx context.Context) (*state.State, error) {
 		ProgressTracker:     s.progressTracker,
 		Region:              s.region,
 		Endpoint:            s.endpoint,
+		Profile:             s.profile,
 		Services:            s.services,
 		DebugWriter:         s.debug,
 		ConcurrencyStrategy: s.concurrencyStrategy,

@@ -140,7 +140,16 @@ func Adapt(ctx context.Context, state *state.State, opt options.Options) error {
 		concurrencyStrategy: opt.ConcurrencyStrategy,
 	}
 
-	cfg, err := config.LoadDefaultConfig(ctx)
+	var cfg aws.Config
+	var err error
+
+	if opt.Profile != "" {
+		cfg, err = config.LoadDefaultConfig(ctx, config.WithSharedConfigProfile(opt.Profile))
+		c.Debug("Using AWS Profile: '%s'", opt.Profile)
+	} else {
+		cfg, err = config.LoadDefaultConfig(ctx)
+	}
+
 	if err != nil {
 		return err
 	}
